@@ -35,7 +35,7 @@ public class Deque<Item> implements Iterable<Item> {
     // add the item to the front
     public void addFirst(Item item) {
         if (item == null) throw new IllegalArgumentException();
-        if (head == null) {
+        if (isEmpty()) {
             head = tail = new Node<>(item);
         }
         else {
@@ -50,7 +50,7 @@ public class Deque<Item> implements Iterable<Item> {
     // add the item to the back
     public void addLast(Item item) {
         if (item == null) throw new IllegalArgumentException();
-        if (head == null) {
+        if (isEmpty()) {
             head = tail = new Node<>(item);
         }
         else {
@@ -66,10 +66,14 @@ public class Deque<Item> implements Iterable<Item> {
     // remove and return the item from the front
     public Item removeFirst() {
         if (isEmpty()) throw new NoSuchElementException();
+        size--;
         Item item = head.item;
+        if (size == 1) {
+            head = tail = null;
+            return item;
+        }
         head = head.prev;
         head.next = null;
-        size--;
         return item;
     }
 
@@ -77,10 +81,14 @@ public class Deque<Item> implements Iterable<Item> {
     // remove and return the item from the back
     public Item removeLast() {
         if (isEmpty()) throw new NoSuchElementException();
+        size--;
         Item item = tail.item;
+        if (size == 1) {
+            head = tail = null;
+            return item;
+        }
         tail = tail.next;
         tail.prev = null;
-        size--;
         return item;
     }
 
@@ -124,7 +132,6 @@ public class Deque<Item> implements Iterable<Item> {
         deque.addFirst("world");
         assert_(deque.size() == 2);
     }
-
 
 
     private static void assert_(boolean cond) {
