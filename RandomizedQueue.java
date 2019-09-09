@@ -2,6 +2,7 @@ import edu.princeton.cs.algs4.StdRandom;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class RandomizedQueue<Item> implements Iterable<Item> {
 
@@ -67,6 +68,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
             @Override
             public Item next() {
+                if (!hasNext()) throw new NoSuchElementException();
                 Item o = (Item) arr[inds[ind]];
                 ind++;
                 return o;

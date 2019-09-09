@@ -1,8 +1,4 @@
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 public class Deque<Item> implements Iterable<Item> {
@@ -127,25 +123,9 @@ public class Deque<Item> implements Iterable<Item> {
         assert_(deque.size() == 1);
         deque.addFirst("world");
         assert_(deque.size() == 2);
-        assert_(fromIterator(deque.iterator()).equals(Arrays.asList("world", "privet")));
-        assert_(deque.removeLast().equals("privet"));
-        assert_(fromIterator(deque.iterator()).equals(Collections.singletonList("world")));
-        deque.addLast("1");
-        deque.addLast("6");
-        assert_(fromIterator(deque.iterator()).equals(Arrays.asList("world", "1", "6")));
-        assert_(deque.size() == 3);
-        assert_(deque.removeFirst().equals("world"));
     }
 
-    private static List<String> fromIterator(Iterator<String> iterator) {
-        List<String> ans = new LinkedList<>();
 
-        while (iterator.hasNext()) {
-            ans.add(iterator.next());
-        }
-
-        return ans;
-    }
 
     private static void assert_(boolean cond) {
         if (!cond) {
