@@ -30,8 +30,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         if (size == arr.length) {
             arr = Arrays.copyOf(arr, arr.length * 2);
         }
-        size++;
         arr[size] = item;
+        size++;
     }
 
     // remove and return a random item
