@@ -66,14 +66,15 @@ public class Deque<Item> implements Iterable<Item> {
     // remove and return the item from the front
     public Item removeFirst() {
         if (isEmpty()) throw new NoSuchElementException();
-        size--;
         Item item = head.item;
         if (size == 1) {
             head = tail = null;
+            size--;
             return item;
         }
         head = head.prev;
         head.next = null;
+        size--;
         return item;
     }
 
@@ -81,14 +82,15 @@ public class Deque<Item> implements Iterable<Item> {
     // remove and return the item from the back
     public Item removeLast() {
         if (isEmpty()) throw new NoSuchElementException();
-        size--;
         Item item = tail.item;
         if (size == 1) {
             head = tail = null;
+            size--;
             return item;
         }
         tail = tail.next;
         tail.prev = null;
+        size--;
         return item;
     }
 
@@ -123,14 +125,11 @@ public class Deque<Item> implements Iterable<Item> {
 
 
     public static void main(String[] args) {
-        Deque<String> deque = new Deque<>();
-        assert_(deque.isEmpty());
-        assert_(deque.size() == 0);
-        deque.addFirst("privet");
-        assert_(!deque.isEmpty());
-        assert_(deque.size() == 1);
-        deque.addFirst("world");
-        assert_(deque.size() == 2);
+        Deque<Integer> deque = new Deque<Integer>();
+        deque.addFirst(1);
+        deque.addFirst(2);
+        deque.removeFirst();
+        deque.addFirst(4);
     }
 
 
