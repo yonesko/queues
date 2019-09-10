@@ -49,9 +49,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             arr = newArr;
         }
         else {
-            for (int i = ind; i < size; i++) {
-                arr[i] = i + 1 < arr.length ? arr[i + 1] : null;
-            }
+            arr[ind] = arr[size - 1];
+            arr[size - 1] = null;
         }
         size--;
         return ((Item) item);
