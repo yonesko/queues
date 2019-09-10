@@ -5,21 +5,26 @@
  **************************************************************************** */
 
 import edu.princeton.cs.algs4.StdIn;
+import edu.princeton.cs.algs4.StdRandom;
 
 public class Permutation {
     public static void main(String[] args) {
-        int k = Integer.parseInt(args[0]);
-        int printed = 0;
+        final int k = Integer.parseInt(args[0]);
+        if (k == 0) return;
         RandomizedQueue<String> queue = new RandomizedQueue<>();
-        while (!StdIn.isEmpty() && printed < k) {
+        while (!StdIn.isEmpty()) {
+            String item = StdIn.readString();
             if (queue.size() == k) {
-                System.out.println(queue.dequeue());
-                printed++;
+                if (StdRandom.uniform(100) < 50) {
+                    queue.dequeue();
+                    queue.enqueue(item);
+                }
             }
-            queue.enqueue(StdIn.readString());
+            else {
+                queue.enqueue(item);
+            }
         }
-        for (int i = 0; i < k - printed; i++) {
-            System.out.println(queue.dequeue());
-        }
+
+        queue.forEach(System.out::println);
     }
 }
