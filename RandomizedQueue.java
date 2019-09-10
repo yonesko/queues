@@ -41,7 +41,9 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         Object item = arr[ind];
         System.arraycopy(arr, ind + 1, arr, ind, size - ind - 1);
         if (size <= arr.length / 4) {
-            arr = Arrays.copyOf(arr, size * 2);
+            Object[] oldArr = this.arr;
+            this.arr = Arrays.copyOf(oldArr, size * 2);
+            Arrays.fill(oldArr, null);
         }
         size--;
         return ((Item) item);
