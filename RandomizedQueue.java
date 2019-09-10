@@ -40,10 +40,10 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         int ind = StdRandom.uniform(size);
         Object item = arr[ind];
         System.arraycopy(arr, ind + 1, arr, ind, size - ind - 1);
-        size--;
         if (size <= arr.length / 4) {
             arr = Arrays.copyOf(arr, size * 2);
         }
+        size--;
         return ((Item) item);
     }
 
@@ -89,13 +89,11 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     // unit testing (required)
     public static void main(String[] args) {
-        RandomizedQueue<String> queue = new RandomizedQueue<>();
-        assert_(queue.isEmpty());
-        assert_(queue.size() == 0);
-        queue.enqueue("q");
-        assert_(!queue.isEmpty());
-        assert_(queue.size() == 1);
-        queue.enqueue("v");
+        RandomizedQueue<Integer> rq = new RandomizedQueue<Integer>();
+        rq.enqueue(698);
+        rq.dequeue();
+        rq.isEmpty();
+        rq.enqueue(815);
     }
 
     private static void assert_(boolean cond) {
