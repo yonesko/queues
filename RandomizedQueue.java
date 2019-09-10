@@ -28,7 +28,9 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     public void enqueue(Item item) {
         if (item == null) throw new IllegalArgumentException();
         if (size == arr.length) {
+            Object[] oldArr = this.arr;
             arr = Arrays.copyOf(arr, arr.length * 2);
+            Arrays.fill(oldArr, null);
         }
         arr[size] = item;
         size++;
@@ -39,11 +41,17 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         if (isEmpty()) throw new NoSuchElementException();
         int ind = StdRandom.uniform(size);
         Object item = arr[ind];
-        System.arraycopy(arr, ind + 1, arr, ind, size - ind - 1);
         if (size <= arr.length / 4) {
-            Object[] oldArr = this.arr;
-            this.arr = Arrays.copyOf(oldArr, size * 2);
-            Arrays.fill(oldArr, null);
+            Object[] newArr = new Object[Math.max(16, size * 2)];
+            for (int i = 0; i < size; i++) {
+                newArr[i] = arr[i >= ind ? i + 1 : i];
+            }
+            arr = newArr;
+        }
+        else {
+            for (int i = ind; i < size; i++) {
+                arr[i] = i + 1 < arr.length ? arr[i + 1] : null;
+            }
         }
         size--;
         return ((Item) item);
