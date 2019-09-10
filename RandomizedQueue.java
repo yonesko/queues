@@ -39,8 +39,11 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         if (isEmpty()) throw new NoSuchElementException();
         int ind = StdRandom.uniform(size);
         Object item = arr[ind];
-        System.arraycopy(arr, ind + 1, arr, ind, arr.length - ind - 1);
+        System.arraycopy(arr, ind + 1, arr, ind, size - ind - 1);
         size--;
+        if (size <= arr.length / 4) {
+            arr = Arrays.copyOf(arr, arr.length * 2);
+        }
         return ((Item) item);
     }
 
