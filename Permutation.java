@@ -15,16 +15,17 @@ public class Permutation {
         RandomizedQueue<String> queue = new RandomizedQueue<>();
         for (int i = 0; i < k; i++) {
             queue.enqueue(StdIn.readString());
+            n++;
         }
 
         while (!StdIn.isEmpty()) {
-            final int j = StdRandom.uniform(n + 1);
+            n++;
             final String item = StdIn.readString();
+            final int j = StdRandom.uniform(n);
             if (j < k) {
                 queue.dequeue();
                 queue.enqueue(item);
             }
-            n++;
         }
 
         queue.forEach(System.out::println);
