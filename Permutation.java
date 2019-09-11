@@ -13,15 +13,15 @@ public class Permutation {
         if (k == 0) return;
         int n = 0;
         RandomizedQueue<String> queue = new RandomizedQueue<>();
+        for (int i = 0; i < k; i++) {
+            queue.enqueue(StdIn.readString());
+        }
+
         while (!StdIn.isEmpty()) {
-            String item = StdIn.readString();
-            if (queue.size() == k) {
-                if (StdRandom.uniform(100) < (k + 0.0D) / n) {
-                    queue.dequeue();
-                    queue.enqueue(item);
-                }
-            }
-            else {
+            final int j = StdRandom.uniform(n + 1);
+            final String item = StdIn.readString();
+            if (j < k) {
+                queue.dequeue();
                 queue.enqueue(item);
             }
             n++;

@@ -24,9 +24,9 @@ class PermutationTest {
             nums.add(i);
         }
 
-        final int N_TESTS = 1_000_000;
+        final int N_TESTS = 1__000000;
         for (int i = 0; i < N_TESTS; i++) {
-            for (Integer x : rand50(k, nums.iterator())) {
+            for (Integer x : reservoirSample(k, nums.iterator())) {
                 if (freq.containsKey(x)) {
                     freq.put(x, freq.get(x) + 1);
                 }
@@ -63,6 +63,30 @@ class PermutationTest {
             ans.add(iterator.next());
         }
 
+        return ans;
+    }
+
+    private List<Integer> reservoirSample(int k, Iterator<Integer> nums) {
+        RandomizedQueue<Integer> queue = new RandomizedQueue<>();
+        int n = 0;
+
+        for (int i = 0; i < k && nums.hasNext(); i++) {
+            queue.enqueue(nums.next());
+            n++;
+        }
+
+        while (nums.hasNext()) {
+            final int j = StdRandom.uniform(n + 1);
+            final Integer next = nums.next();
+            if (j < k) {
+                queue.dequeue();
+                queue.enqueue(next);
+            }
+            n++;
+        }
+
+        List<Integer> ans = new LinkedList<>();
+        queue.iterator().forEachRemaining(ans::add);
         return ans;
     }
 
